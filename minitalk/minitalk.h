@@ -1,35 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   server.c                                           :+:      :+:    :+:   */
+/*   minitalk.h                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arecce <arecce@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/04/14 18:07:33 by arecce            #+#    #+#             */
-/*   Updated: 2022/05/10 19:17:41 by arecce           ###   ########.fr       */
+/*   Created: 2022/05/10 19:10:28 by arecce            #+#    #+#             */
+/*   Updated: 2022/05/10 19:14:39 by arecce           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minitalk.h"
-#include <signal.h>
-#include <unistd.h>
-#include <stdio.h>
+#ifndef MINITALK_H
+# define MINITALK_H
 
-void	sig_handler(int sig)
-{
-	printf("Messaggio inviato!\n");
-}
+extern char	g_message;
 
-int	main(void)
-{
-	//int				pid;
-	struct sigaction	ft_sig;
-
-	ft_sig.sa_flags = SA_SIGINFO;
-	ft_sig.sa_handler = sig_handler;
-	//pid = getpid();
-	printf("PID: %d\nWaiting...\n", getpid());
-	sigaction(SIGUSR1, &ft_sig, NULL);
-	while (1)
-		pause();
-}
+#endif

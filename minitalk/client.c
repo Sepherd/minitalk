@@ -6,10 +6,11 @@
 /*   By: arecce <arecce@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 18:07:30 by arecce            #+#    #+#             */
-/*   Updated: 2022/05/09 15:28:34 by arecce           ###   ########.fr       */
+/*   Updated: 2022/05/10 19:17:04 by arecce           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#include "minitalk.h"
 #include <signal.h>
 #include <unistd.h>
 #include <stdio.h>
@@ -65,7 +66,10 @@ int	main(int argc, char **argv)
 	pid = ft_atoi(argv[1]);
 	// signal(SIGUSR1, msg_received);
 	if (argc == 2 && pid > 0)
+	{
+		g_message = argv[2];
 		kill(pid, SIGUSR1);
+	}
 	else
 		return (printf("Error PID.\n"));
 	return (0);
