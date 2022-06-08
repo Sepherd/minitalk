@@ -6,7 +6,7 @@
 /*   By: arecce <arecce@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 18:07:30 by arecce            #+#    #+#             */
-/*   Updated: 2022/05/10 19:17:04 by arecce           ###   ########.fr       */
+/*   Updated: 2022/06/08 18:46:44 by arecce           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <signal.h>
 #include <unistd.h>
 #include <stdio.h>
+#include <stdlib.h>
 
 int	ft_atoi(char *str)
 {
@@ -51,26 +52,47 @@ int	ft_atoi(char *str)
 // 	return ;
 // }
 
-// void	msg_tosend(int sig, int pid)
-// {
-// 	printf("Messaggio inviato!");
-// 	kill(pid, SIGUSR1);
-// }
+void	msg_tosend(int pid, char *msg)
+{
+ 	char	c;
+	int		i;
+		
+	while (*msg)
+	{
+		i = 8;
+		c = *msg++;
+		while(i--)
+		{
+			if (c >> i & 1)
+				kill(pid, SIGUSR2);
+			else
+				kill(pid, SIGUSR1);
+			usleep(1);
+		}
+	}
+	i = 8;
+	while(i--)
+	{
+		kill(pid, SIGUSR1);
+		usleep(1);
+	}	
+}
 
 int	main(int argc, char **argv)
 {
 	int	pid;
+	char *msg;
 
-	if (argc < 2)
+	if (argc < 3)
 		return (printf("Error!\n"));
 	pid = ft_atoi(argv[1]);
 	// signal(SIGUSR1, msg_received);
-	if (argc == 2 && pid > 0)
+	if (argc == 3 && pid > 0)
 	{
-		g_message = argv[2];
-		kill(pid, SIGUSR1);
+		msg = argv[2];
+		msg_tosend(pid, msg);
 	}
 	else
-		return (printf("Error PID.\n"));
+		return (printf("Error PID!\n"));
 	return (0);
 }
