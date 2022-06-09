@@ -6,7 +6,7 @@
 /*   By: arecce <arecce@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 18:07:30 by arecce            #+#    #+#             */
-/*   Updated: 2022/06/09 14:25:40 by arecce           ###   ########.fr       */
+/*   Updated: 2022/06/09 15:04:21 by arecce           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,20 +44,20 @@ int	ft_atoi(char *str)
 void	msg_received(int sig)
 {
 	if (sig == SIGUSR1)
-		write(1, "Messaggio ricevuto\n", 19);
+		ft_printf("Messaggio ricevuto\n");
 	return ;
 }
 
 void	msg_tosend(int pid, char *msg)
 {
- 	char	c;
+	char	c;
 	int		i;
-		
+
 	while (*msg)
 	{
 		i = 8;
 		c = *msg++;
-		while(i--)
+		while (i--)
 		{
 			if (c >> i & 1)
 				kill(pid, SIGUSR2);
@@ -70,11 +70,11 @@ void	msg_tosend(int pid, char *msg)
 
 int	main(int argc, char **argv)
 {
-	int	pid;
-	char *msg;
+	int		pid;
+	char	*msg;
 
 	if (argc < 3)
-		return (printf("Error!\n"));
+		return (ft_printf("Error!\n"));
 	pid = ft_atoi(argv[1]);
 	signal(SIGUSR1, msg_received);
 	if (argc == 3 && pid > 0)
@@ -84,6 +84,6 @@ int	main(int argc, char **argv)
 		msg_tosend(pid, "\n");
 	}
 	else
-		return (printf("Error PID!\n"));
+		return (ft_printf("Error PID!\n"));
 	return (0);
 }
