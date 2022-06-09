@@ -6,7 +6,7 @@
 /*   By: arecce <arecce@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/04/14 18:07:30 by arecce            #+#    #+#             */
-/*   Updated: 2022/06/09 13:29:03 by arecce           ###   ########.fr       */
+/*   Updated: 2022/06/09 14:25:40 by arecce           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,9 +41,9 @@ int	ft_atoi(char *str)
 	return (num);
 }
 
-void	msg_received(int x)
+void	msg_received(int sig)
 {
-	if (x == SIGUSR1)
+	if (sig == SIGUSR1)
 		write(1, "Messaggio ricevuto\n", 19);
 	return ;
 }
